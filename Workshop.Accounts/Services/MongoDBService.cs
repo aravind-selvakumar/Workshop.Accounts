@@ -17,26 +17,27 @@ namespace Workshop.Accounts.Services
             _AccountCollection = database.GetCollection<Account>(mongoDBSettings.Value.CollectionName);
         }
 
-        public async Task<List<Account>> GetAsync()
+        public async Task<List<Account>> GetAccountListAsync()
         {
             return await _AccountCollection.Find(new BsonDocument()).ToListAsync();
         }
-        public async Task CreateAsync(Account Account) 
+        public async Task CreateAccountAsync(Account Account) 
         {
             await _AccountCollection.InsertOneAsync(Account);
             return;
         }
-        public async Task AddToAccountAsync(string id, string movieId)
+        public async Task AddToAccountAsync(string accountNumber, Account account)
         {
-            FilterDefinition<Account> filter = Builders<Account>.Filter.Eq("Id", id);
-            UpdateDefinition<Account> update = Builders<Account>.Update.AddToSet<string>("movieIds", movieId);
-            await _AccountCollection.UpdateOneAsync(filter, update);
+            FilterDefinition<Account> filter = Builders<Account>.Filter.Eq("AccountNumber", accountNumber);
+           // UpdateDefinition<Account> update = Builders<Account>.Update.
+                //AddToSet<string>("movieIds", movieId);
+            //await _AccountCollection.UpdateOneAsync(filter, update);
             return;
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAccountAsync(string accountNumber)
         {
-            FilterDefinition<Account> filter = Builders<Account>.Filter.Eq("Id", id);
+            FilterDefinition<Account> filter = Builders<Account>.Filter.Eq("AccountNumber", accountNumber);
             await _AccountCollection.DeleteOneAsync(filter);
             return;
         }

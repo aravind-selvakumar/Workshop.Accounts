@@ -18,32 +18,32 @@ namespace Workshop.Accounts.Controllers
 
 
         [HttpGet]
-        public async Task<List<Account>> Get()
+        public async Task<List<Account>> GetAccount()
         {
-            return await _mongoDBService.GetAsync();
+            return await _mongoDBService.GetAccountListAsync();
         }
         
         
        
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Account Account)
+        public async Task<IActionResult> PostAccount([FromBody] Account Account)
         {
-            await _mongoDBService.CreateAsync(Account);
-            return CreatedAtAction(nameof(Get), new { id = Account.Id }, Account);
+            await _mongoDBService.CreateAccountAsync(Account);
+            return CreatedAtAction(nameof(GetAccount), new { id = Account.Id }, Account);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> AddToAccount(string id, [FromBody] string movieId)
+        public async Task<IActionResult> AddToAccount(string id, [FromBody] Account account)
         {
-            await _mongoDBService.AddToAccountAsync(id, movieId);
+            await _mongoDBService.AddToAccountAsync(id, account);
             return NoContent();
         }
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteAccount(string id)
         {
-            await _mongoDBService.DeleteAsync(id);
+            await _mongoDBService.DeleteAccountAsync(id);
             return NoContent();
         }
     }

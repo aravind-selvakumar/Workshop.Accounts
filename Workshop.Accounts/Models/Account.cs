@@ -10,11 +10,20 @@ namespace Workshop.Accounts.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
-        public string username { get; set; } = null!;
+        [BsonElement("UserNumber")]
+        [JsonPropertyName("UserNumber")]
+        public string UserNumber { get; set; } = null!;
 
-        [BsonElement("items")]
-        [JsonPropertyName("items")]
-        public List<string> movieIds { get; set; } = null!;
+        [BsonElement("AccountBalance")]
+        [JsonPropertyName("AccountBalance")]
+        public int AccountBalance { get; set; }
 
+        [BsonElement("AccountStatus")]
+        [JsonPropertyName("AccountStatus")]
+        public string AccountStatus { get; set; } = string.Empty;
+
+        [BsonElement("AccountType")]
+        [JsonPropertyName("AccountType")]
+        public string AccountType { get; set; } = string.Empty;
     }
 }
